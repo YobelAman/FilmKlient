@@ -15,7 +15,7 @@
   
 
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
         @Html.AntiForgeryToken()
 
@@ -90,12 +90,22 @@
     <div class="form-group" style="color:white">
         @Html.LabelFor(model => model.Filmbild, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            
 
-            @Html.EditorFor(model => model.Filmbild, new { htmlAttributes = new { @class = "form-control", type = "file", name = "fileUpload" } })
+
+            @Html.EditorFor(model => model.Filmbild, new { htmlAttributes = new { @class = "form-control", type = "file", name = "fileUpl" } })
             @Html.ValidationMessageFor(model => model.Filmbild, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div>
+        @*@Html.LabelFor(m => Model.File)*@
+        File:
+        @Html.TextBoxFor(model => Model.File, new { type = "file" })<br />
+        @Html.ValidationMessageFor(model => Model.File)
+    </div>
+
+
+    @*<input type="file" name="@Model.File" value="filmbilden"/>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

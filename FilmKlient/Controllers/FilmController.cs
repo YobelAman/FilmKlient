@@ -53,9 +53,15 @@ namespace FilmKlient.Controllers
             using(var Klient = new HttpClient())
             {
                 var path = "http://193.10.202.71/filmadmin/Images/" + film.Filmbild;//publicera film admin gränssnittet 
-
                 film.Filmbild = path;
+
                 //spara filmen i film mappen image
+                var fileName = Path.GetFileName(film.File.FileName);
+                var paths = Path.Combine(Server.MapPath("~/Images"), fileName);
+                film.File.SaveAs(paths);
+
+                film.File = null;
+
 
 
                 Klient.BaseAddress = new Uri("http://193.10.202.71/Filmservice/film");
