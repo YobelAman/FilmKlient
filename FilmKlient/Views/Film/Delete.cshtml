@@ -1,0 +1,99 @@
+﻿@model FilmKlient.Models.Film
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<html>
+<body>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <h3 style="color:white">Vill du verkligen ta bort?</h3>
+    <div>
+        <h4>Film</h4>
+        <hr />
+        <dl class="dl-horizontal" style="color:white">
+            <dt>
+                @Html.DisplayNameFor(model => model.Titel)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Titel)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Speltid)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Speltid)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Aldergrans)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Aldergrans)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Beskrivning)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Beskrivning)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Utgivningsdatum)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Utgivningsdatum)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Sprak)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Sprak)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Huvudregissor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Huvudregissor)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Ta bort" class="btn btn-default" /> |
+                @Html.ActionLink("Gå tillbaka", "Index", null, new { @class = "btn btn-danger btn-large" })
+            </div>
+        }
+    </div>
+
+</body>
+</html>

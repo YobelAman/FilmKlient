@@ -1,0 +1,112 @@
+﻿@model FilmKlient.Models.Film
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<body>
+   
+    <h2 style="color:white">Skapa ny film </h2>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+  
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal" style="background-color:darkred">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Titel, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Titel, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Titel, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Speltid, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Speltid, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Speltid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Genre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Aldergrans, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Aldergrans, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Aldergrans, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Beskrivning, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Beskrivning, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Beskrivning, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Utgivningsdatum, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Utgivningsdatum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Utgivningsdatum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Sprak, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Sprak, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Sprak, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Huvudregissor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Huvudregissor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Huvudregissor, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="color:white">
+        @Html.LabelFor(model => model.Filmbild, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            
+
+            @Html.EditorFor(model => model.Filmbild, new { htmlAttributes = new { @class = "form-control", type = "file", name = "fileUpload" } })
+            @Html.ValidationMessageFor(model => model.Filmbild, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+<div>
+    @Html.ActionLink("Gå tillbaka", "Index", null, new { @class = "btn btn-danger btn-large" })
+</div>
+</body>
+</html>

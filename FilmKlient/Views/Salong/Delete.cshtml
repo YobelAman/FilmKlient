@@ -1,0 +1,52 @@
+﻿@model FilmKlient.Models.Salong
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <html>
+    <body>
+
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+        <h3 style="color:white">Vill du verkligen ta bort?</h3>
+        <div>
+
+            <hr />
+            <dl class="dl-horizontal" style="color:white">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Namn)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Namn)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.platser)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.platser)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Ta bort" class="btn btn-default" /> |
+            <hr />
+            <div>
+                @Html.ActionLink("Gå tillbaka", "Index", null, new { @class = "btn btn-danger btn-large" })
+            </div>
+        </div>
+            }
+        </div>
+</body>
+</html>

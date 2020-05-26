@@ -1,0 +1,93 @@
+﻿body {
+    margin: 200PX;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+    font-size: 62.5%;
+    font-size: 10px;
+    width: 100%;
+    height: 100vh;
+    background: url('../Images/bild1.jpg') center fixed; /* Här har jag fixerat bakgrundsilden så den står alltid still. */
+    background-image: url('../Images/bild1.jpeg');
+    background-position: center top;
+    background-size: cover;
+    background-color: black;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+    background-color: #6f191c;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.bakgrundsbild {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.rubrik {
+    font-size: 5em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.adminbg {
+    background-color: white;
+    text-align: left;
+}
+
+.login {
+    position: absolute;
+    right: 10px;
+}
+
+.logga {
+    text-align: center;
+    border-radius: 100%;
+    height: 200px;
+    width: 200px;
+}
+
+
+.table {
+    border-radius: 5px;
+    width: 50%;
+    margin: 0px auto;
+    float: none;
+}
+
+    .table td {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #6f191c;
+        color: white;
+    }
+
+    .table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color:darkred;
+        color: white;
+    }
