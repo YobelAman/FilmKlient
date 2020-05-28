@@ -12,7 +12,7 @@ namespace FilmKlient.Controllers
 {
     public class FilmController : Controller
     {
-        // GET: Film
+        // GET: Film sadsadasd
         public ActionResult Index()
         {
             IEnumerable<Film> Filmer = null;
