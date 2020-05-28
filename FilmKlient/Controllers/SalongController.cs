@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Net.Http;
-
+using NLog;
 namespace FilmKlient.Controllers
 {
     public class SalongController : Controller
@@ -13,26 +13,38 @@ namespace FilmKlient.Controllers
         // GET: Salong
         public ActionResult Index()
         {
+
             IEnumerable<Salong> Salonger = null;
             using (var Klient = new HttpClient())
             {
-                Klient.BaseAddress = new Uri("https://localhost:44379/");
-                var SvarUppgift = Klient.GetAsync("Salong");
-                SvarUppgift.Wait();
-                var Resultat = SvarUppgift.Result;
-
-                if (Resultat.IsSuccessStatusCode)
+                try
                 {
-                    var LasUppgift = Resultat.Content.ReadAsAsync<IList<Salong>>();
-                    LasUppgift.Wait();
 
-                    Salonger = LasUppgift.Result;
+
+                    Klient.BaseAddress = new Uri("https://localhost:44379/");
+                    var SvarUppgift = Klient.GetAsync("Salong");
+                    SvarUppgift.Wait();
+                    var Resultat = SvarUppgift.Result;
+
+                    if (Resultat.IsSuccessStatusCode)
+                    {
+                        var LasUppgift = Resultat.Content.ReadAsAsync<IList<Salong>>();
+                        LasUppgift.Wait();
+
+                        Salonger = LasUppgift.Result;
+                    }
+                    else
+                    {
+                        Salonger = Enumerable.Empty<Salong>();
+                        ModelState.AddModelError(string.Empty, "Server is currently down please try later");
+                        //Retunera felet här
+                    }
                 }
-                else
+                catch (DivideByZeroException ex)
                 {
-                    Salonger= Enumerable.Empty<Salong>();
-                    ModelState.AddModelError(string.Empty, "Server is currently down please try later");
-                    //Retunera felet här
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
                 }
             }
             return View(Salonger);
@@ -50,18 +62,29 @@ namespace FilmKlient.Controllers
         {
             using (var Klient = new HttpClient())
             {
-                Klient.BaseAddress = new Uri("https://localhost:44379/film");
-                var SkickaUppgift = Klient.PostAsJsonAsync<Salong>("Salong", salong);
-                SkickaUppgift.Wait();
-
-                var SkickatResultat = SkickaUppgift.Result;
-
-                if (SkickatResultat.IsSuccessStatusCode)
+                try
                 {
-                    return RedirectToAction("Index");
 
+
+                    Klient.BaseAddress = new Uri("https://localhost:44379/film");
+                    var SkickaUppgift = Klient.PostAsJsonAsync<Salong>("Salong", salong);
+                    SkickaUppgift.Wait();
+
+                    var SkickatResultat = SkickaUppgift.Result;
+
+                    if (SkickatResultat.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+
+                    }
+                    ModelState.AddModelError(string.Empty, "Server is currently down please try later, please check with admin");
                 }
-                ModelState.AddModelError(string.Empty, "Server is currently down please try later, please check with admin");
+                catch (DivideByZeroException ex)
+                {
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
+                }
             }
             return View(salong);
 
@@ -72,17 +95,28 @@ namespace FilmKlient.Controllers
             Salong salong = null;
             using (var Klient = new HttpClient())
             {
-                Klient.BaseAddress = new Uri("https://localhost:44379/film");
-                var SvarUppgift = Klient.GetAsync("Salong/" + id.ToString());
-                SvarUppgift.Wait();
-                var Resultat = SvarUppgift.Result;
-
-                if (Resultat.IsSuccessStatusCode)
+                try
                 {
 
-                    var LasUppgift = Resultat.Content.ReadAsAsync<Salong>();
-                    LasUppgift.Wait();
-                    salong = LasUppgift.Result;
+
+                    Klient.BaseAddress = new Uri("https://localhost:44379/film");
+                    var SvarUppgift = Klient.GetAsync("Salong/" + id.ToString());
+                    SvarUppgift.Wait();
+                    var Resultat = SvarUppgift.Result;
+
+                    if (Resultat.IsSuccessStatusCode)
+                    {
+
+                        var LasUppgift = Resultat.Content.ReadAsAsync<Salong>();
+                        LasUppgift.Wait();
+                        salong = LasUppgift.Result;
+                    }
+                }
+                catch (DivideByZeroException ex)
+                {
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
                 }
             }
             return View(salong);
@@ -94,16 +128,25 @@ namespace FilmKlient.Controllers
         {
             using (var Klient = new HttpClient())
             {
-                Klient.BaseAddress = new Uri("https://localhost:44379/Film");
-                var AndraUppgift = Klient.PutAsJsonAsync<Salong>("salong", salong);
-                AndraUppgift.Wait();
+                try
+                {
 
-                var Resultat = AndraUppgift.Result;
-                if (Resultat.IsSuccessStatusCode)
-                    return View(salong);
+                    Klient.BaseAddress = new Uri("https://localhost:44379/Film");
+                    var AndraUppgift = Klient.PutAsJsonAsync<Salong>("salong", salong);
+                    AndraUppgift.Wait();
+
+                    var Resultat = AndraUppgift.Result;
+                    if (Resultat.IsSuccessStatusCode)
+                        return View(salong);
+
+                }
+                catch (DivideByZeroException ex)
+                {
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
+                }
                 return RedirectToAction("Index");
-
-
 
             }
 
@@ -115,16 +158,27 @@ namespace FilmKlient.Controllers
             Salong salong = null;
             using (var Klient = new HttpClient())
             {
-                Klient.BaseAddress = new Uri("https://localhost:44379/");
-                var RaderaUppgift = Klient.GetAsync("Salong/" + id.ToString());
-                RaderaUppgift.Wait();
-
-                var Resultat = RaderaUppgift.Result;
-                if (Resultat.IsSuccessStatusCode)
+                try
                 {
-                    var lasUppgift = Resultat.Content.ReadAsAsync<Salong>();
-                    lasUppgift.Wait();
-                    salong = lasUppgift.Result;
+
+
+                    Klient.BaseAddress = new Uri("https://localhost:44379/");
+                    var RaderaUppgift = Klient.GetAsync("Salong/" + id.ToString());
+                    RaderaUppgift.Wait();
+
+                    var Resultat = RaderaUppgift.Result;
+                    if (Resultat.IsSuccessStatusCode)
+                    {
+                        var lasUppgift = Resultat.Content.ReadAsAsync<Salong>();
+                        lasUppgift.Wait();
+                        salong = lasUppgift.Result;
+                    }
+                }
+                catch (DivideByZeroException ex)
+                {
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
                 }
                 return View(salong);
             }
@@ -136,17 +190,28 @@ namespace FilmKlient.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44379/");
-
-                //HTTP DELETE
-                var deleteTask = client.DeleteAsync("salong/" + id.ToString());
-                deleteTask.Wait();
-
-                var result = deleteTask.Result;
-                if (result.IsSuccessStatusCode)
+                try
                 {
 
-                    return RedirectToAction("Index");
+
+                    client.BaseAddress = new Uri("https://localhost:44379/");
+
+                    //HTTP DELETE
+                    var deleteTask = client.DeleteAsync("salong/" + id.ToString());
+                    deleteTask.Wait();
+
+                    var result = deleteTask.Result;
+                    if (result.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (DivideByZeroException ex)
+                {
+
+                    Logger logger = LogManager.GetLogger("fileLogger");
+                    logger.Error("ops!", ex);
                 }
             }
 
